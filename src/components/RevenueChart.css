@@ -53,6 +53,23 @@
   filter: drop-shadow(0 2px 4px rgba(255, 87, 34, 0.3));
 }
 
+/* Error and empty states */
+.error-message,
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  color: #666;
+  font-size: 14px;
+  text-align: center;
+}
+
+.error-message p,
+.empty-state p {
+  margin: 0;
+}
+
 @media (max-width: 768px) {
   .revenue-chart {
     margin: 32px 0;
