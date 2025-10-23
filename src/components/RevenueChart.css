@@ -1,0 +1,78 @@
+.revenue-chart {
+  margin: 48px 0;
+}
+
+.revenue-chart__container {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  border: 1px solid #f0f0f0;
+  position: relative;
+}
+
+.chart-wrapper {
+  margin-bottom: 16px;
+}
+
+.chart-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.chart-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart-label--start {
+  align-items: flex-start;
+}
+
+.chart-label--end {
+  align-items: flex-end;
+}
+
+.chart-label__date {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+/* Custom styling for recharts */
+.recharts-wrapper {
+  font-family: inherit;
+}
+
+.recharts-cartesian-axis-tick-value {
+  font-size: 12px;
+  fill: #666;
+}
+
+.recharts-active-dot {
+  filter: drop-shadow(0 2px 4px rgba(255, 87, 34, 0.3));
+}
+
+@media (max-width: 768px) {
+  .revenue-chart {
+    margin: 32px 0;
+  }
+  
+  .revenue-chart__container {
+    padding: 24px 16px;
+  }
+  
+  .chart-wrapper {
+    height: 250px;
+  }
+  
+  .chart-labels {
+    padding: 0 8px;
+  }
+  
+  .chart-label__date {
+    font-size: 12px;
+  }
+}
