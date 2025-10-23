@@ -1,7 +1,6 @@
 
 import { Header } from './components/Header';
 import { WalletSummary } from './components/WalletSummary';
-import { RevenueChart } from './components/RevenueChart';
 import { TransactionList } from './components/TransactionList';
 import './App.css';
 
@@ -12,7 +11,6 @@ function App() {
       <main className="main-content">
         <div className="container">
           <WalletSummary />
-          <RevenueChart />
           <TransactionList />
         </div>
       </main>

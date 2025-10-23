@@ -1,5 +1,5 @@
 .wallet-summary {
-  padding: 32px 0;
+  padding: 64px 0;
 }
 
 .wallet-summary__main {
@@ -14,18 +14,7 @@
 }
 
 .balance-card {
-  background: white;
-  border-radius: 16px;
-  padding: 32px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border: 1px solid #f0f0f0;
-  width: 100%;
-}
-
-.balance-card--primary {
-  background: linear-gradient(135deg, #ff5722 0%, #ff7043 100%);
-  color: white;
-  border: none;
+  padding-right: 64px;
 }
 
 .balance-card__header {
@@ -47,6 +36,12 @@
 
 .balance-card__action {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  button {
+    border-radius: 100px;
+    padding: 20px 52px;
+  }
 }
 
 .wallet-summary__stats {

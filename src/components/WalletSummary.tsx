@@ -3,6 +3,7 @@ import { useWallet } from '../hooks/useApi';
 import { Button } from './ui/Button';
 import { Loading } from './ui/Loading';
 import './WalletSummary.css';
+import { RevenueChart } from './RevenueChart';
 
 const formatCurrency = (amount: number): string => {
   return new Intl.NumberFormat('en-US', {
@@ -40,13 +41,15 @@ export const WalletSummary: React.FC = () => {
   return (
     <div className="wallet-summary">
       <div className="wallet-summary__main">
-        <div className="wallet-summary__balance">
-          <div className="balance-card balance-card--primary">
-            <div className="balance-card__header">
-              <span className="balance-card__label">Available Balance</span>
-            </div>
-            <div className="balance-card__amount">
-              {formatCurrency(wallet.balance)}
+        <div className="">
+          <div className="wallet-summary__balance">
+            <div className="balance-card balance-card--primary">
+              <div className="balance-card__header">
+                <span className="balance-card__label">Available Balance</span>
+              </div>
+              <div className="balance-card__amount">
+                {formatCurrency(wallet.balance)}
+              </div>
             </div>
             <div className="balance-card__action">
               <Button variant="primary" size="medium">
@@ -54,6 +57,7 @@ export const WalletSummary: React.FC = () => {
               </Button>
             </div>
           </div>
+          <RevenueChart />
         </div>
 
         <div className="wallet-summary__stats">
