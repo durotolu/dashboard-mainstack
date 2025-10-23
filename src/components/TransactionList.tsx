@@ -3,7 +3,7 @@ import { useTransactions } from "../hooks/useApi";
 import type { Transaction, TransactionFilters } from "../types/api";
 import { Button } from "./ui/Button";
 import { Loading } from "./ui/Loading";
-import { FilterModal } from "./FilterModal";
+import { FilterSidebar } from "./FilterSidebar";
 import { format } from "date-fns";
 import "./TransactionList.css";
 
@@ -306,7 +306,7 @@ export const TransactionList: React.FC = () => {
         </div>
       )}
 
-      <FilterModal
+      <FilterSidebar
         isOpen={isFilterOpen}
         onClose={() => setIsFilterOpen(false)}
         filters={filters}
