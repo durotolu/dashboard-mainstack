@@ -27,6 +27,18 @@
   display: flex;
   gap: 12px;
   flex-shrink: 0;
+
+  button {
+    background-color: #EFF1F6;
+    border-radius: 100px;
+    border: 1px solid #e0e0e0;
+    color: #131316;
+    font-weight: 500;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 }
 
 .filter-active {
@@ -41,9 +53,6 @@
 }
 
 .transaction-list__content {
-  background: white;
-  border-radius: 16px;
-  border: 1px solid #f0f0f0;
   overflow: hidden;
 }
 
@@ -51,7 +60,6 @@
   display: flex;
   align-items: center;
   padding: 20px 24px;
-  border-bottom: 1px solid #f0f0f0;
   gap: 16px;
   transition: background-color 0.2s ease;
 }
@@ -132,7 +140,7 @@
 }
 
 .status-badge {
-  padding: 4px 12px;
+  padding: 4px 0;
   border-radius: 20px;
   font-size: 12px;
   font-weight: 600;
@@ -140,22 +148,18 @@
 }
 
 .status-badge--successful {
-  background-color: #e8f5e8;
   color: #2e7d32;
 }
 
 .status-badge--pending {
-  background-color: #fff3e0;
   color: #f57c00;
 }
 
 .status-badge--failed {
-  background-color: #ffebee;
   color: #c62828;
 }
 
 .empty-state {
-  background: white;
   border-radius: 16px;
   border: 1px solid #f0f0f0;
   padding: 64px 32px;

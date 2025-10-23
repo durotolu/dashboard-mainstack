@@ -10,6 +10,7 @@ const formatCurrency = (amount: number): string => {
     style: 'currency',
     currency: 'USD',
     minimumFractionDigits: 2,
+    currencyDisplay: "code",
   }).format(amount);
 };
 

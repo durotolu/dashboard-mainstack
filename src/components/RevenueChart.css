@@ -4,6 +4,7 @@
 
 .revenue-chart__container {
   padding: 32px;
+  padding-left: 0;
   position: relative;
 }
 
