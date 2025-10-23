@@ -4,7 +4,7 @@
 
 .wallet-summary__main {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
   gap: 32px;
   align-items: start;
 }
@@ -51,10 +51,7 @@
 }
 
 .stat-card {
-  background: white;
-  border-radius: 12px;
   padding: 24px;
-  border: 1px solid #f0f0f0;
 }
 
 .stat-card__header {

@@ -3,10 +3,7 @@
 }
 
 .revenue-chart__container {
-  background: white;
-  border-radius: 16px;
   padding: 32px;
-  border: 1px solid #f0f0f0;
   position: relative;
 }
 
