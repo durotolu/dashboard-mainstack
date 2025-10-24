@@ -124,3 +124,115 @@ describe('Header Dropdown', () => {
     });
   });
 });
+
+describe('Header Apps Dropdown', () => {
+  beforeEach(() => {
+    // Clear any previous DOM state
+    document.body.innerHTML = '';
+  });
+
+  test('renders Apps button', () => {
+    render(<Header />);
+    const appsButton = screen.getByRole('button', { name: /apps/i });
+    expect(appsButton).toBeInTheDocument();
+  });
+
+  test('toggles Apps dropdown when Apps button is clicked', async () => {
+    render(<Header />);
+    const appsButton = screen.getByRole('button', { name: /apps/i });
+
+    // Initially dropdown should not be visible
+    expect(screen.queryByRole('menu', { name: /apps menu/i })).not.toBeInTheDocument();
+
+    // Click to open dropdown
+    fireEvent.click(appsButton);
+
+    await waitFor(() => {
+      expect(screen.getByRole('menu', { name: /apps menu/i })).toBeInTheDocument();
+    });
+
+    // Click again to close dropdown
+    fireEvent.click(appsButton);
+
+    await waitFor(() => {
+      expect(screen.queryByRole('menu', { name: /apps menu/i })).not.toBeInTheDocument();
+    });
+  });
+
+  test('applies active state styling when dropdown is open', async () => {
+    render(<Header />);
+    const appsButton = screen.getByRole('button', { name: /apps/i });
+
+    // Initially should not have active class
+    expect(appsButton).not.toHaveClass('nav-link--active');
+
+    // Click to open dropdown
+    fireEvent.click(appsButton);
+
+    await waitFor(() => {
+      expect(appsButton).toHaveClass('nav-link--active');
+    });
+  });
+
+  test('displays all app items in dropdown', async () => {
+    render(<Header />);
+    const appsButton = screen.getByRole('button', { name: /apps/i });
+    fireEvent.click(appsButton);
+
+    await waitFor(() => {
+      expect(screen.getByText('Link in Bio')).toBeInTheDocument();
+      expect(screen.getByText('Store')).toBeInTheDocument();
+      expect(screen.getByText('Media Kit')).toBeInTheDocument();
+      expect(screen.getByText('Invoicing')).toBeInTheDocument();
+      expect(screen.getByText('Bookings')).toBeInTheDocument();
+    });
+  });
+
+  test('closes Apps dropdown when clicking outside', async () => {
+    render(<Header />);
+    const appsButton = screen.getByRole('button', { name: /apps/i });
+    fireEvent.click(appsButton);
+
+    await waitFor(() => {
+      expect(screen.getByRole('menu', { name: /apps menu/i })).toBeInTheDocument();
+    });
+
+    // Click outside the dropdown
+    fireEvent.mouseDown(document.body);
+
+    await waitFor(() => {
+      expect(screen.queryByRole('menu', { name: /apps menu/i })).not.toBeInTheDocument();
+    });
+  });
+
+  test('closes Apps dropdown when pressing Escape key', async () => {
+    render(<Header />);
+    const appsButton = screen.getByRole('button', { name: /apps/i });
+    fireEvent.click(appsButton);
+
+    await waitFor(() => {
+      expect(screen.getByRole('menu', { name: /apps menu/i })).toBeInTheDocument();
+    });
+
+    // Press Escape key
+    fireEvent.keyDown(document, { key: 'Escape' });
+
+    await waitFor(() => {
+      expect(screen.queryByRole('menu', { name: /apps menu/i })).not.toBeInTheDocument();
+    });
+  });
+
+  test('has proper accessibility attributes', async () => {
+    render(<Header />);
+    const appsButton = screen.getByRole('button', { name: /apps/i });
+
+    // Initially aria-expanded should be false
+    expect(appsButton).toHaveAttribute('aria-expanded', 'false');
+
+    fireEvent.click(appsButton);
+
+    await waitFor(() => {
+      expect(appsButton).toHaveAttribute('aria-expanded', 'true');
+    });
+  });
+});
