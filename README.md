@@ -8,9 +8,7 @@ A modern, responsive financial dashboard built with React, TypeScript, and Vite.
 - **Responsive Design**: Pixel-perfect implementation matching Figma designs
 - **Advanced Filtering**: Multi-criteria transaction filtering with date ranges, types, and statuses
 - **Interactive Charts**: Revenue visualization with smooth animations
-- **Modern UI Components**: Reusable component library with accessibility support
 - **Comprehensive Testing**: Unit and integration tests with Vitest
-- **TypeScript**: Full type safety throughout the application
 
 ## 🛠️ Tech Stack
 
@@ -111,23 +109,13 @@ The application integrates with the following Mainstack API endpoints:
 
 Base URL: `https://fe-task-api.mainstack.io`
 
-## 🎨 Design System
-
-The application implements a custom design system with:
-
-- **Colors**: Primary black (#131316), accent orange (#ff5722)
-- **Typography**: System fonts with consistent sizing scale
-- **Spacing**: 8px grid system
-- **Components**: Consistent button styles, form elements, and layouts
-- **Responsive**: Mobile-first approach with breakpoints at 768px and 1024px
-
 ## 🧩 Key Components
 
 ### WalletSummary
 Displays financial overview including available balance, ledger balance, total payout, total revenue, and pending payout.
 
 ### TransactionList
-Shows paginated transaction history with advanced filtering capabilities including date range, transaction type, and status filters.
+Shows transaction history with advanced filtering capabilities including date range, transaction type, and status filters.
 
 ### FilterModal
 Provides comprehensive filtering options with:
@@ -141,41 +129,15 @@ Interactive line chart showing revenue trends over time using Recharts library.
 
 ## 🔧 Development
 
-### Code Style
-- ESLint configuration for code quality
-- TypeScript strict mode enabled
-- Consistent naming conventions
-
 ### Testing Strategy
 - Unit tests for individual components
 - Integration tests for API calls
 - Accessibility testing
 - Responsive design testing
 
-## 🚀 Deployment
-
-The application is ready for deployment to any static hosting service:
-
-1. Build the application: `npm run build`
-2. Deploy the `dist` folder to your hosting service
-3. Configure your hosting service to serve `index.html` for all routes
-
 ## 📝 License
 
 This project is licensed under the MIT License.
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests for new functionality
-5. Ensure all tests pass
-6. Submit a pull request
-
-## 📞 Support
-
-For questions or support, please contact the development team or create an issue in the repository.
 
 ## 🎯 Implementation Highlights
 

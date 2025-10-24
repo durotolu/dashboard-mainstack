@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { RevenueChart } from './RevenueChart';
 import * as useApiHook from '../hooks/useApi';
 import type { Transaction } from '../types/api';
+import React from 'react';
 
 // Mock the useTransactions hook
 vi.mock('../hooks/useApi', () => ({

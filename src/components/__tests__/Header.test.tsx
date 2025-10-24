@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { vi } from 'vitest';
+import { describe, test, beforeEach, expect, vi } from 'vitest';
 import { Header } from '../Header';
 
 // Mock the useUser hook
@@ -180,11 +180,16 @@ describe('Header Apps Dropdown', () => {
     fireEvent.click(appsButton);
 
     await waitFor(() => {
-      expect(screen.getByText('Link in Bio')).toBeInTheDocument();
-      expect(screen.getByText('Store')).toBeInTheDocument();
-      expect(screen.getByText('Media Kit')).toBeInTheDocument();
-      expect(screen.getByText('Invoicing')).toBeInTheDocument();
-      expect(screen.getByText('Bookings')).toBeInTheDocument();
+      // Use more specific selectors to avoid conflicts with screen reader text
+      const dropdown = screen.getByRole('menu', { name: /apps menu/i });
+      expect(dropdown).toBeInTheDocument();
+
+      // Check for dropdown descriptions that are unique to each app
+      expect(screen.getByText('Manage your Link in Bio')).toBeInTheDocument();
+      expect(screen.getByText('Manage your Store activities')).toBeInTheDocument();
+      expect(screen.getByText('Manage your Media Kit')).toBeInTheDocument();
+      expect(screen.getByText('Manage your Invoices')).toBeInTheDocument();
+      expect(screen.getByText('Manage your Bookings')).toBeInTheDocument();
     });
   });
 
