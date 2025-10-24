@@ -115,7 +115,7 @@
   align-items: center;
   border-radius: 100px;
   padding: 4px 12px 4px 4px;
-  
+  position: relative;
 }
 
 .header__profile {
@@ -152,25 +152,158 @@
   font-size: 14px;
 }
 
+/* Dropdown Menu Styles */
+.header__dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0px 4px 12px rgba(45, 59, 67, 0.15);
+  min-width: 330px;
+  z-index: 1000;
+  overflow: hidden;
+  animation: dropdownSlideIn 0.2s ease-out;
+}
+
+@keyframes dropdownSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header__dropdown__profile {
+  padding: 20px;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dropdown-profile__avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #131316;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.dropdown-profile__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.dropdown-profile__name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #131316;
+  margin-bottom: 4px;
+}
+
+.dropdown-profile__email {
+  font-size: 14px;
+  color: #666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.header__dropdown__menu {
+  padding: 8px 0;
+}
+
+.dropdown-menu-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: #131316;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  text-align: left;
+}
+
+.dropdown-menu-item:hover {
+  background-color: #f8f9fa;
+}
+
+.dropdown-menu-item:focus {
+  outline: none;
+  background-color: #f8f9fa;
+}
+
+.dropdown-menu-item svg {
+  color: #666;
+  flex-shrink: 0;
+}
+
+.dropdown-menu-item:hover svg {
+  color: #131316;
+}
+
 @media (max-width: 768px) {
   .header__container {
     padding: 0 16px;
     height: 64px;
   }
-  
+
   .header__left {
     gap: 24px;
   }
-  
+
   .header__nav {
     display: none;
   }
-  
+
   .profile__name {
     display: none;
   }
-  
+
   .header__right {
     gap: 12px;
+  }
+
+  .header__dropdown {
+    right: -16px;
+    min-width: 260px;
+  }
+
+  .header__dropdown__profile {
+    padding: 16px;
+  }
+
+  .dropdown-profile__avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .dropdown-profile__name {
+    font-size: 15px;
+  }
+
+  .dropdown-profile__email {
+    font-size: 13px;
+  }
+
+  .dropdown-menu-item {
+    padding: 10px 16px;
+    font-size: 15px;
   }
 }

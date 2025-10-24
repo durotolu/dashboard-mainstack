@@ -56,17 +56,3 @@ ul, ol {
 input, textarea, select {
   font-family: inherit;
 }
-
-/* Focus styles for accessibility */
-*:focus {
-  outline: 2px solid #ff5722;
-  outline-offset: 2px;
-}
-
-button:focus,
-input:focus,
-textarea:focus,
-select:focus {
-  outline: 2px solid #ff5722;
-  outline-offset: 2px;
-}
