@@ -98,19 +98,29 @@
 .quick-filters {
   display: flex;
   gap: 12px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  padding-bottom: 4px; /* Add some space for potential scrollbar */
+}
+
+.quick-filters::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }
 
 .quick-filter-btn {
-  padding: 8px 16px;
+  padding: 8px 18px;
   border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  border-radius: 100px;
   background: white;
   color: #666;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
+  flex-shrink: 0; /* Prevent buttons from shrinking */
+  white-space: nowrap; /* Prevent text wrapping */
 }
 
 .quick-filter-btn:hover {
@@ -447,11 +457,16 @@
   
   .quick-filters {
     gap: 8px;
+    /* Maintain horizontal scrolling on mobile */
+    overflow-x: auto;
+    flex-wrap: nowrap;
   }
-  
+
   .quick-filter-btn {
     padding: 6px 12px;
     font-size: 13px;
+    flex-shrink: 0; /* Prevent buttons from shrinking on mobile */
+    white-space: nowrap; /* Prevent text wrapping on mobile */
   }
   
   .filter-sidebar__actions {

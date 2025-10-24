@@ -17,6 +17,7 @@ const QUICK_FILTERS = [
   { label: 'Last 7 days', value: 'last7days' },
   { label: 'This month', value: 'thismonth' },
   { label: 'Last 3 months', value: 'last3months' },
+  { label: 'Last 6 months', value: 'last6months' },
 ];
 
 const TRANSACTION_TYPES = [
@@ -99,6 +100,10 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
         break;
       case 'last3months':
         start = new Date(now.getFullYear(), now.getMonth() - 3, now.getDate());
+        end = now;
+        break;
+      case 'last6months':
+        start = new Date(now.getFullYear(), now.getMonth() - 6, now.getDate());
         end = now;
         break;
     }
