@@ -104,7 +104,7 @@ export const TransactionList: React.FC = () => {
     transactionTypes: [
       "Store Transactions",
       "Get Tipped",
-      "Withdrawals",
+      "Withdrawal",
       "Chargebacks",
       "Cashbacks",
       "Refer & Earn",
@@ -130,14 +130,13 @@ export const TransactionList: React.FC = () => {
 
       // Transaction type filter
       if (filters.transactionTypes.length > 0) {
-        const transactionType = transaction.metadata?.type || transaction.type;
-        if (!filters.transactionTypes.includes(transactionType)) return false;
+        const transactionType = transaction.type;
+        if (!filters.transactionTypes.includes(transactionType.charAt(0).toUpperCase() + transactionType.slice(1))) return false;
       }
 
       // Transaction status filter
       if (filters.transactionStatuses.length > 0) {
-        if (!filters.transactionStatuses.includes(transaction.status))
-          return false;
+        if (!filters.transactionStatuses.includes(transaction.status.charAt(0).toUpperCase() + transaction.status.slice(1))) return false;
       }
 
       return true;
@@ -282,8 +281,8 @@ export const TransactionList: React.FC = () => {
                   y2="46.8145"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop stop-color="#DBDEE6" />
-                  <stop offset="1" stop-color="#F6F7F9" />
+                  <stop stopColor="#DBDEE6" />
+                  <stop offset="1" stopColor="#F6F7F9" />
                 </linearGradient>
                 <linearGradient
                   id="paint1_linear_19139_630"
@@ -293,8 +292,8 @@ export const TransactionList: React.FC = () => {
                   y2="31.5158"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop stop-color="#5C6670" />
-                  <stop offset="1" stop-color="#131316" />
+                  <stop stopColor="#5C6670" />
+                  <stop offset="1" stopColor="#131316" />
                 </linearGradient>
               </defs>
             </svg>

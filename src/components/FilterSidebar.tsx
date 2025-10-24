@@ -23,7 +23,7 @@ const QUICK_FILTERS = [
 const TRANSACTION_TYPES = [
   'Store Transactions',
   'Get Tipped',
-  'Withdrawals',
+  'Withdrawal',
   'Chargebacks',
   'Cashbacks',
   'Refer & Earn',
