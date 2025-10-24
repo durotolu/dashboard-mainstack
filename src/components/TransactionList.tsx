@@ -311,7 +311,6 @@ export const TransactionList: React.FC = () => {
         onClose={() => setIsFilterOpen(false)}
         filters={filters}
         onFiltersChange={setFilters}
-        transactions={transactions || []}
       />
     </div>
   );

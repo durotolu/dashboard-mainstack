@@ -134,24 +134,40 @@
   flex-direction: column;
 }
 
+.date-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.date-picker-arrow {
+  position: absolute;
+  right: 16px;
+  color: #666;
+  pointer-events: none;
+  z-index: 1;
+}
+
 .date-picker-input {
   padding: 12px 16px;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   font-size: 16px;
   font-family: inherit;
-  background: white;
+  background: #f8f9fa;
   transition: border-color 0.2s ease;
   width: 100%;
+  cursor: pointer;
+  position: relative;
 }
 
 .date-picker-input:focus {
   outline: none;
-  border-color: #ff5722;
+  border-color: #131316;
 }
 
 .date-picker-input::placeholder {
-  color: #999;
+  color: #131316;
 }
 
 .checkbox-group {
@@ -223,6 +239,154 @@
 
 .filter-sidebar__actions .btn {
   flex: 1;
+}
+
+.filter-sidebar__actions .btn:disabled {
+  background-color: #e0e0e0;
+  color: #999;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.filter-sidebar__actions .btn:disabled:hover {
+  background-color: #e0e0e0;
+  color: #999;
+}
+
+.filter-sidebar__actions .btn:disabled {
+  background-color: #e0e0e0;
+  color: #999;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.filter-sidebar__actions .btn:disabled:hover {
+  background-color: #e0e0e0;
+  color: #999;
+}
+
+/* Multi-select dropdown styles */
+.multi-select-dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.multi-select-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #f8f9fa;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 48px;
+}
+
+.multi-select-input:hover {
+  border-color: #131316;
+}
+
+.multi-select-input--open {
+  border-color: #131316;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.multi-select-value {
+  flex: 1;
+  font-size: 16px;
+  color: #131316;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.multi-select-arrow {
+  color: #666;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+.multi-select-arrow--open {
+  transform: rotate(180deg);
+}
+
+.multi-select-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #131316;
+  border-top: none;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.multi-select-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.multi-select-option:last-child {
+  border-bottom: none;
+}
+
+.multi-select-option:hover {
+  background-color: #f8f9fa;
+}
+
+.multi-select-option input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.multi-select-option input[type="checkbox"]:hover {
+  border-color: #131316;
+}
+
+.multi-select-option input[type="checkbox"]:checked {
+  background: #131316;
+  border-color: #131316;
+}
+
+.multi-select-option input[type="checkbox"]:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.multi-select-option-label {
+  font-size: 16px;
+  color: #131316;
+  font-weight: 500;
+  user-select: none;
 }
 
 /* React DatePicker Customization */

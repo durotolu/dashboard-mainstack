@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import DatePicker from 'react-datepicker';
 import { Button } from './ui/Button';
-import type { Transaction, TransactionFilters } from '../types/api';
+import type { TransactionFilters } from '../types/api';
 import 'react-datepicker/dist/react-datepicker.css';
 import './FilterSidebar.css';
 
@@ -10,7 +10,6 @@ interface FilterSidebarProps {
   onClose: () => void;
   filters: TransactionFilters;
   onFiltersChange: (filters: TransactionFilters) => void;
-  transactions: Transaction[];
 }
 
 const QUICK_FILTERS = [
@@ -20,17 +19,32 @@ const QUICK_FILTERS = [
   { label: 'Last 3 months', value: 'last3months' },
 ];
 
-const TRANSACTION_TYPES = ['deposit', 'withdrawal'];
-const TRANSACTION_STATUSES = ['successful', 'pending', 'failed'];
+const TRANSACTION_TYPES = [
+  'Store Transactions',
+  'Get Tipped',
+  'Withdrawals',
+  'Chargebacks',
+  'Cashbacks',
+  'Refer & Earn',
+];
+
+const TRANSACTION_STATUSES = [
+  'Successful',
+  'Pending',
+  'Failed',
+];
 
 export const FilterSidebar: React.FC<FilterSidebarProps> = ({
   isOpen,
   onClose,
   filters,
   onFiltersChange,
-  transactions,
 }) => {
   const [localFilters, setLocalFilters] = useState<TransactionFilters>(filters);
+  const [isTypeDropdownOpen, setIsTypeDropdownOpen] = useState(false);
+  const [isStatusDropdownOpen, setIsStatusDropdownOpen] = useState(false);
+  const typeDropdownRef = useRef<HTMLDivElement>(null);
+  const statusDropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setLocalFilters(filters);
@@ -43,13 +57,24 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
       }
     };
 
+    const handleClickOutside = (event: MouseEvent) => {
+      if (typeDropdownRef.current && !typeDropdownRef.current.contains(event.target as Node)) {
+        setIsTypeDropdownOpen(false);
+      }
+      if (statusDropdownRef.current && !statusDropdownRef.current.contains(event.target as Node)) {
+        setIsStatusDropdownOpen(false);
+      }
+    };
+
     if (isOpen) {
       document.addEventListener('keydown', handleEscape);
+      document.addEventListener('mousedown', handleClickOutside);
       document.body.style.overflow = 'hidden';
     }
 
     return () => {
       document.removeEventListener('keydown', handleEscape);
+      document.removeEventListener('mousedown', handleClickOutside);
       document.body.style.overflow = 'unset';
     };
   }, [isOpen, onClose]);
@@ -100,6 +125,28 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
         ? prev.transactionStatuses.filter(s => s !== status)
         : [...prev.transactionStatuses, status]
     }));
+  };
+
+  const formatSelectedValues = (values: string[]) => {
+    if (values.length === 0) return '';
+    if (values.length === 1) return values[0];
+    return values.join(', ');
+  };
+
+  const hasFiltersChanged = () => {
+    const dateChanged =
+      localFilters.dateRange.start !== filters.dateRange.start ||
+      localFilters.dateRange.end !== filters.dateRange.end;
+
+    const typesChanged =
+      localFilters.transactionTypes.length !== filters.transactionTypes.length ||
+      !localFilters.transactionTypes.every(type => filters.transactionTypes.includes(type));
+
+    const statusesChanged =
+      localFilters.transactionStatuses.length !== filters.transactionStatuses.length ||
+      !localFilters.transactionStatuses.every(status => filters.transactionStatuses.includes(status));
+
+    return dateChanged || typesChanged || statusesChanged;
   };
 
   const handleApply = () => {
@@ -160,7 +207,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
           <div className="filter-section">
             <h3 className="filter-section__title">Date Range</h3>
             <div className="date-range">
-              <div className="date-input">
+              <div className="date-input-wrapper">
                 <DatePicker
                   selected={localFilters.dateRange.start}
                   onChange={(date) => setLocalFilters(prev => ({
@@ -171,8 +218,17 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                   dateFormat="dd MMM yyyy"
                   className="date-picker-input"
                 />
+                <svg
+                  className="date-picker-arrow"
+                  width="12"
+                  height="8"
+                  viewBox="0 0 12 8"
+                  fill="none"
+                >
+                  <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
               </div>
-              <div className="date-input">
+              <div className="date-input-wrapper">
                 <DatePicker
                   selected={localFilters.dateRange.end}
                   onChange={(date) => setLocalFilters(prev => ({
@@ -183,6 +239,15 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                   dateFormat="dd MMM yyyy"
                   className="date-picker-input"
                 />
+                <svg
+                  className="date-picker-arrow"
+                  width="12"
+                  height="8"
+                  viewBox="0 0 12 8"
+                  fill="none"
+                >
+                  <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
               </div>
             </div>
           </div>
@@ -190,34 +255,76 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
           {/* Transaction Type */}
           <div className="filter-section">
             <h3 className="filter-section__title">Transaction Type</h3>
-            <div className="checkbox-group">
-              {TRANSACTION_TYPES.map(type => (
-                <label key={type} className="checkbox-item">
-                  <input
-                    type="checkbox"
-                    checked={localFilters.transactionTypes.includes(type)}
-                    onChange={() => handleTransactionTypeToggle(type)}
-                  />
-                  <span className="checkbox-label">{type}</span>
-                </label>
-              ))}
+            <div className="multi-select-dropdown" ref={typeDropdownRef}>
+              <div
+                className={`multi-select-input ${isTypeDropdownOpen ? 'multi-select-input--open' : ''}`}
+                onClick={() => setIsTypeDropdownOpen(!isTypeDropdownOpen)}
+              >
+                <span className="multi-select-value">
+                  {formatSelectedValues(localFilters.transactionTypes) || 'Store Transactions, Get Tipped, Withdrawals, Chargebacks, Ca...'}
+                </span>
+                <svg
+                  className={`multi-select-arrow ${isTypeDropdownOpen ? 'multi-select-arrow--open' : ''}`}
+                  width="12"
+                  height="8"
+                  viewBox="0 0 12 8"
+                  fill="none"
+                >
+                  <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              {isTypeDropdownOpen && (
+                <div className="multi-select-dropdown-menu">
+                  {TRANSACTION_TYPES.map(type => (
+                    <label key={type} className="multi-select-option">
+                      <input
+                        type="checkbox"
+                        checked={localFilters.transactionTypes.includes(type)}
+                        onChange={() => handleTransactionTypeToggle(type)}
+                      />
+                      <span className="multi-select-option-label">{type}</span>
+                    </label>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
           {/* Transaction Status */}
           <div className="filter-section">
             <h3 className="filter-section__title">Transaction Status</h3>
-            <div className="checkbox-group">
-              {TRANSACTION_STATUSES.map(status => (
-                <label key={status} className="checkbox-item">
-                  <input
-                    type="checkbox"
-                    checked={localFilters.transactionStatuses.includes(status)}
-                    onChange={() => handleTransactionStatusToggle(status)}
-                  />
-                  <span className="checkbox-label">{status}</span>
-                </label>
-              ))}
+            <div className="multi-select-dropdown" ref={statusDropdownRef}>
+              <div
+                className={`multi-select-input ${isStatusDropdownOpen ? 'multi-select-input--open' : ''}`}
+                onClick={() => setIsStatusDropdownOpen(!isStatusDropdownOpen)}
+              >
+                <span className="multi-select-value">
+                  {formatSelectedValues(localFilters.transactionStatuses) || 'Successful, Pending, Failed'}
+                </span>
+                <svg
+                  className={`multi-select-arrow ${isStatusDropdownOpen ? 'multi-select-arrow--open' : ''}`}
+                  width="12"
+                  height="8"
+                  viewBox="0 0 12 8"
+                  fill="none"
+                >
+                  <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              {isStatusDropdownOpen && (
+                <div className="multi-select-dropdown-menu">
+                  {TRANSACTION_STATUSES.map(status => (
+                    <label key={status} className="multi-select-option">
+                      <input
+                        type="checkbox"
+                        checked={localFilters.transactionStatuses.includes(status)}
+                        onChange={() => handleTransactionStatusToggle(status)}
+                      />
+                      <span className="multi-select-option-label">{status}</span>
+                    </label>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -226,7 +333,11 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
           <Button variant="outline" onClick={handleClear}>
             Clear
           </Button>
-          <Button variant="primary" onClick={handleApply}>
+          <Button
+            variant="primary"
+            onClick={handleApply}
+            disabled={!hasFiltersChanged()}
+          >
             Apply
           </Button>
         </div>
