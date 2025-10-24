@@ -163,7 +163,17 @@
   border-radius: 16px;
   border: 1px solid #f0f0f0;
   padding: 64px 32px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+
+  Button {
+    background-color: #EFF1F6;
+    border-radius: 100px;
+    padding: 12px 24px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
 }
 
 .empty-state__icon {
