@@ -303,6 +303,10 @@
   white-space: nowrap;
 }
 
+.multi-select-value--placeholder {
+  color: #999;
+}
+
 .multi-select-arrow {
   color: #666;
   transition: transform 0.2s ease;

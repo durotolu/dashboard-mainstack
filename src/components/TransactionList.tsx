@@ -101,8 +101,19 @@ export const TransactionList: React.FC = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filters, setFilters] = useState<TransactionFilters>({
     dateRange: { start: null, end: null },
-    transactionTypes: [],
-    transactionStatuses: [],
+    transactionTypes: [
+      "Store Transactions",
+      "Get Tipped",
+      "Withdrawals",
+      "Chargebacks",
+      "Cashbacks",
+      "Refer & Earn",
+    ],
+    transactionStatuses: [
+      "Successful",
+      "Pending",
+      "Failed",
+    ],
   });
 
   const filteredTransactions = useMemo(() => {

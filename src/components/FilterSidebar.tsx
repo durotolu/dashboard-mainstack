@@ -260,8 +260,8 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                 className={`multi-select-input ${isTypeDropdownOpen ? 'multi-select-input--open' : ''}`}
                 onClick={() => setIsTypeDropdownOpen(!isTypeDropdownOpen)}
               >
-                <span className="multi-select-value">
-                  {formatSelectedValues(localFilters.transactionTypes) || 'Store Transactions, Get Tipped, Withdrawals, Chargebacks, Ca...'}
+                <span className={`multi-select-value ${localFilters.transactionTypes.length === 0 ? 'multi-select-value--placeholder' : ''}`}>
+                  {formatSelectedValues(localFilters.transactionTypes) || 'Select transaction types'}
                 </span>
                 <svg
                   className={`multi-select-arrow ${isTypeDropdownOpen ? 'multi-select-arrow--open' : ''}`}
@@ -298,8 +298,8 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                 className={`multi-select-input ${isStatusDropdownOpen ? 'multi-select-input--open' : ''}`}
                 onClick={() => setIsStatusDropdownOpen(!isStatusDropdownOpen)}
               >
-                <span className="multi-select-value">
-                  {formatSelectedValues(localFilters.transactionStatuses) || 'Successful, Pending, Failed'}
+                <span className={`multi-select-value ${localFilters.transactionStatuses.length === 0 ? 'multi-select-value--placeholder' : ''}`}>
+                  {formatSelectedValues(localFilters.transactionStatuses) || 'Select transaction statuses'}
                 </span>
                 <svg
                   className={`multi-select-arrow ${isStatusDropdownOpen ? 'multi-select-arrow--open' : ''}`}
