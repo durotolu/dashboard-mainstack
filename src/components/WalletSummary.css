@@ -47,7 +47,6 @@
 .wallet-summary__stats {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
 }
 
 .stat-card {
